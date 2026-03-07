@@ -1,0 +1,76 @@
+:root {
+    --primary-color: #2c7a4b;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333;
+}
+
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { margin: 0; background-color: var(--bg-color); color: var(--text-color); }
+
+.hidden { display: none !important; }
+.active { display: block; }
+
+/* Buttons */
+.btn {
+    background-color: var(--primary-color); color: white; border: none;
+    padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;
+}
+.btn:hover { background-color: #1e5c36; }
+.large-btn { padding: 15px 30px; font-size: 18px; margin-top: 20px; }
+
+/* Login Page */
+#login-page { height: 100vh; display: flex; align-items: center; justify-content: center; }
+.login-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+.login-container input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; align-items: center; background: var(--primary-color); padding: 15px 30px; color: white; }
+.nav-left .logo { font-size: 24px; font-weight: bold; cursor: pointer; margin-left: 15px; }
+.icon-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+.nav-right .nav-link { background: none; border: none; color: white; margin-left: 15px; cursor: pointer; font-size: 16px; }
+.nav-right .nav-link:hover { text-decoration: underline; }
+
+/* Sidebar */
+.sidebar { position: fixed; left: 0; top: 0; height: 100%; width: 250px; background: white; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding: 20px; z-index: 1000; }
+.close-btn { background: none; border: none; font-size: 24px; float: right; cursor: pointer; }
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar li { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+
+/* Content Areas */
+.content-wrapper { padding: 40px; max-width: 1200px; margin: auto; }
+.hero { text-align: center; background: white; padding: 60px 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+/* Crops Grid */
+.crops-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; }
+.crop-tile { background: white; padding: 30px 10px; text-align: center; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; font-weight: bold; }
+.crop-tile:hover { transform: translateY(-5px); border: 2px solid var(--primary-color); }
+
+/* Upload Area */
+.upload-container { background: white; padding: 40px; text-align: center; border-radius: 10px; margin-top: 20px; }
+#preview-area img { max-width: 300px; margin-top: 20px; border-radius: 8px; }
+
+/* Results */
+.result-header { display: flex; justify-content: space-between; align-items: center; }
+.result-card { display: flex; gap: 30px; background: white; padding: 30px; border-radius: 10px; margin: 20px 0; }
+.result-card img { max-width: 300px; border-radius: 8px; }
+.highlight { color: #d9534f; }
+
+/* Statistics */
+.stats-container { display: flex; gap: 30px; margin-top: 20px; }
+.map-section, .data-section { flex: 1; background: white; padding: 20px; border-radius: 10px; }
+.placeholder-map { border: 2px dashed #ccc; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.mock-regions button { margin: 5px; padding: 5px 10px; }
+.stat-box { border-left: 4px solid var(--primary-color); padding-left: 15px; margin-bottom: 20px; }
+
+/* Contact Form */
+.contact-container { background: white; padding: 40px; border-radius: 10px; max-width: 600px; margin: auto; }
+.contact-container textarea, .contact-container input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
+
+/* Print Styles */
+@media print {
+    body * { visibility: hidden; }
+    #result-page, #result-page * { visibility: visible; }
+    #result-page { position: absolute; left: 0; top: 0; width: 100%; }
+    .print-btn, .navbar, .back-btn { display: none !important; }
+}

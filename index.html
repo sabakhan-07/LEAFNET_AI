@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeafNet AI Platform</title>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
@@ -38,8 +39,8 @@
             <button id="close-sidebar" class="close-btn">×</button>
             <h3>Recent Activity</h3>
             <ul id="recent-list">
-                <li>Checked Tomato Leaf - Early Blight</li>
-                <li>Checked Potato Leaf - Healthy</li>
+                <li>Checked Tomato - Healthy</li>
+                <li>Checked Apple - Apple Scab</li>
                 <li>Viewed State Statistics</li>
             </ul>
         </div>
@@ -48,7 +49,7 @@
             <div id="home-page" class="page-section hidden">
                 <div class="hero">
                     <h1>Highlights of the Work</h1>
-                    <p>Welcome to LeafNet AI. Our Lightweight-LeafNet and LeafSeverityNet models provide rapid, highly accurate plant disease detection and severity estimation directly from leaf images. Empowering farmers with AI-driven agricultural insights.</p>
+                    <p>Welcome to LeafNet AI. Our Lightweight-LeafNet and LeafSeverityNet models provide rapid, highly accurate plant disease detection and severity estimation directly from leaf images.</p>
                     <button class="btn large-btn" onclick="navigateTo('crops-page')">TRY IT NOW ↗</button>
                 </div>
             </div>
@@ -60,14 +61,14 @@
             </div>
 
             <div id="upload-page" class="page-section hidden">
-                <button class="back-btn" onclick="navigateTo('crops-page')">← Back to Crops</button>
+                <button class="back-btn btn" onclick="navigateTo('crops-page')">← Back to Crops</button>
                 <h2>Upload Image for <span id="selected-crop-name">Crop</span></h2>
                 <div class="upload-container">
                     <input type="file" id="leaf-image" accept="image/*">
                     <div id="preview-area" class="hidden">
                         <img id="image-preview" src="" alt="Preview">
                     </div>
-                    <button id="submit-image-btn" class="btn">Submit for Analysis</button>
+                    <button id="submit-image-btn" class="btn large-btn" style="margin-top: 20px;">Submit for Analysis</button>
                 </div>
             </div>
 
@@ -82,37 +83,31 @@
                         <h3>Disease: <span id="res-disease" class="highlight">Late Blight</span></h3>
                         <p><strong>Severity:</strong> <span id="res-severity">85%</span></p>
                         <p><strong>Description/Diagnostics:</strong></p>
-                        <p id="res-desc">Water-soaked spots appear on the leaves, rapidly expanding into large brown lesions. Requires immediate fungicide application and isolation of affected plants.</p>
+                        <p id="res-desc">Analysis complete. Please apply recommended treatments.</p>
                     </div>
                 </div>
-                <button class="btn" onclick="navigateTo('home-page')">Back to Home</button>
+                <button class="btn back-btn" onclick="navigateTo('home-page')">Back to Home</button>
             </div>
 
             <div id="statistics-page" class="page-section hidden">
                 <h2>Agriculture Statistics</h2>
                 <div class="stats-container">
                     <div class="map-section">
-                                                <div class="placeholder-map">
-                            <p>Interactive Indian Map (Select Region)</p>
-                            <div class="mock-regions">
-                                <button onclick="updateStats('North')">North India</button>
-                                <button onclick="updateStats('South')">South India</button>
-                                <button onclick="updateStats('All')">All India</button>
-                            </div>
-                        </div>
+                        <h3>Select a State</h3>
+                        <div id="india-map" style="width: 100%; height: 450px;"></div>
                     </div>
                     <div class="data-section">
                         <div class="stat-box">
                             <h3>India Wide</h3>
-                            <p id="stat-india">Overall crop health is stable. Wheat production up by 4%.</p>
+                            <p id="stat-india">Overall crop health is stable across the subcontinent.</p>
                         </div>
                         <div class="stat-box">
-                            <h3>State Wide</h3>
-                            <p id="stat-state">Select a region on the map to view state-specific data.</p>
+                            <h3>State / Region Wide</h3>
+                            <p id="stat-state">Select a state on the map to view specific data.</p>
                         </div>
                         <div class="stat-box">
                             <h3>For Farmer</h3>
-                            <p id="stat-farmer">Current recommendation: Increase irrigation due to dry spells expected next week.</p>
+                            <p id="stat-farmer">Awaiting state selection for targeted recommendations.</p>
                         </div>
                     </div>
                 </div>
@@ -129,9 +124,55 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
+
+    <div id="support-sidebar" class="support-sidebar">
+        <div class="support-header">
+            <h3>Support Center</h3>
+            <button id="close-support-btn" class="icon-btn">×</button>
+        </div>
+        
+        <div class="support-tabs">
+            <button id="tab-chat" class="tab-btn active">Chat Support</button>
+            <button id="tab-call" class="tab-btn">Call Support</button>
+        </div>
+
+        <div id="chat-view" class="support-view">
+            <div class="chat-title">
+                <select id="llm-selector">
+                    <option value="chatgpt">ChatGPT Engine (Default)</option>
+                    <option value="agrillm">AgriLLM (CGIAR Advisory)</option>
+                    <option value="agrigpt">AgriGPT (Tri-RAG)</option>
+                    <option value="agrimllm">AgriM-LLM (Vision)</option>
+                </select>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="message system-message">
+                    <strong>System Info:</strong> Select an AI engine above.
+                </div>
+                <div class="message bot-message">
+                    Hello! I am your agricultural assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="Ask about crops...">
+                <button id="send-chat-btn" class="btn">Send</button>
+            </div>
+        </div>
+
+        <div id="call-view" class="support-view hidden">
+            <div class="call-content" style="text-align: center; padding: 40px 20px;">
+                <h2>📞 Call Us</h2>
+                <p>Speak directly with an agronomy expert.</p>
+                <h1 style="color: var(--primary-color); margin: 20px 0;">1-800-LEAF-NET</h1>
+                <p>Available Mon-Fri, 9AM - 5PM</p>
+                <button class="btn large-btn">Request a Callback</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="open-support-btn" class="side-support-btn">Support</button>
 
     <script src="script.js"></script>
 </body>
